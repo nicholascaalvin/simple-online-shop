@@ -117,6 +117,7 @@ const App = () => {
         headers: {
           "ngrok-skip-browser-warning": true,
         },
+        withCredentials: true,
       })
       .then((response) => {
         setProducts(response.data);
