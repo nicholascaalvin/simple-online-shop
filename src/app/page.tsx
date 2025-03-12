@@ -111,9 +111,15 @@ const App = () => {
       setUser(JSON.parse(Cookies.get("user_data") || "null").email);
       setUserType(JSON.parse(Cookies.get("user_data") || "null").type);
     }
-    axios.get("http://localhost:5001/api/products").then((response) => {
-      setProducts(response.data);
-    });
+    axios
+      .get(process.env.NEXT_PUBLIC_BACKEND_API + "/api/products", {
+        headers: {
+          "ngrok-skip-browser-warning": true,
+        },
+      })
+      .then((response) => {
+        setProducts(response.data);
+      });
     const savedCart = JSON.parse(localStorage.getItem("cart") || "[]");
     setCart(savedCart);
   }, []);
@@ -135,10 +141,15 @@ const App = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5001/api/user/signup",
+        process.env.NEXT_PUBLIC_BACKEND_API + "/api/user/signup",
         {
           email,
           password,
+        },
+        {
+          headers: {
+            "ngrok-skip-browser-warning": true,
+          },
         }
       );
       Cookies.set(
@@ -177,10 +188,15 @@ const App = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5001/api/user/login",
+        process.env.NEXT_PUBLIC_BACKEND_API + "/api/user/login",
         {
           email,
           password,
+        },
+        {
+          headers: {
+            "ngrok-skip-browser-warning": true,
+          },
         }
       );
 
@@ -259,11 +275,12 @@ const App = () => {
         formData.append("images", x); // 'images' can be an array on the server side
       });
       const response_item = await axios.post(
-        "http://localhost:5001/api/products",
+        process.env.NEXT_PUBLIC_BACKEND_API + "/api/products",
         formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
+            "ngrok-skip-browser-warning": true,
           },
         }
       );
@@ -272,9 +289,15 @@ const App = () => {
         setLoginDialogTitle("Success!");
         setLoginDialogDescription("Success add item!");
         triggerAlertDialog();
-        axios.get("http://localhost:5001/api/products").then((response) => {
-          setProducts(response.data);
-        });
+        axios
+          .get(process.env.NEXT_PUBLIC_BACKEND_API + "/api/products", {
+            headers: {
+              "ngrok-skip-browser-warning": true,
+            },
+          })
+          .then((response) => {
+            setProducts(response.data);
+          });
       }
     } catch (error: any) {
       setLoginDialogTitle("Failed!");
@@ -591,7 +614,10 @@ const App = () => {
                         return (
                           <CarouselItem key={image_index}>
                             <img
-                              src={`http://localhost:5001/uploads/${image}`}
+                              src={
+                                process.env.NEXT_PUBLIC_BACKEND_API +
+                                `/uploads/${image}`
+                              }
                               alt="Not Found"
                               height={"100px"}
                             />
