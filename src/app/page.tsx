@@ -58,7 +58,6 @@ import {
 } from "@/components/ui/hover-card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import Navbar from "./components/navbar";
 
 //Icons
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -93,7 +92,7 @@ const App = () => {
   const [user, setUser] = useState<string | null>(null);
   const [userType, setUserType] = useState<string | null>(null);
 
-  const [products, setProducts] = useState<Product>([]);
+  const [products, setProducts] = useState<Product[]>([]);
 
   const [openAddItemDialog, setOpenAddItemDialog] = useState(false);
   const triggerAddItemDialog = () => setOpenAddItemDialog(true);
