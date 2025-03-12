@@ -111,6 +111,7 @@ const App = () => {
       setUser(JSON.parse(Cookies.get("user_data") || "null").email);
       setUserType(JSON.parse(Cookies.get("user_data") || "null").type);
     }
+    console.log(process.env.NEXT_PUBLIC_BACKEND_API);
     axios
       .get(process.env.NEXT_PUBLIC_BACKEND_API + "/api/products", {
         headers: {
